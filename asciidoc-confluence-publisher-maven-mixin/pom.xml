@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.playtika</groupId>
+        <artifactId>confluence-publisher-mixin-example</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+
+    <artifactId>asciidoc-confluence-publisher-maven-mixin</artifactId>
+
+    <properties>
+        <asciidoc-confluence-publisher-maven-plugin.version>0.14.0</asciidoc-confluence-publisher-maven-plugin.version>
+
+        <!-- These parameters MUST be specified on consumer side -->
+        <confluence.documentation.first.space>SPECIFY FIRST SPACE</confluence.documentation.first.space>
+        <confluence.documentation.first.pageId>SPECIFY FIRST PAGE ID</confluence.documentation.first.pageId>
+        <confluence.documentation.first.skip>true</confluence.documentation.first.skip>
+
+        <confluence.documentation.sandbox.space>SPECIFY SANDBOX SPACE</confluence.documentation.sandbox.space>
+        <confluence.documentation.sandbox.pageId>SPECIFY SANDBOX PAGE ID</confluence.documentation.sandbox.pageId>
+
+        <!-- These parameters can be specified on consumer side -->
+        <!-- start region ASCIIDOCTOR ATRRIBUTES-->
+        <confluence.documentation.attributes.project-name>${project.parent.name}
+        </confluence.documentation.attributes.project-name>
+        <confluence.documentation.attributes.snippets>${project.build.directory}/generated-snippets
+        </confluence.documentation.attributes.snippets>
+        <confluence.documentation.attributes.snippets-1>${project.build.directory}/generated-snippets
+        </confluence.documentation.attributes.snippets-1>
+        <confluence.documentation.attributes.snippets-2>${project.build.directory}/generated-snippets
+        </confluence.documentation.attributes.snippets-2>
+        <confluence.documentation.attributes.snippets-3>${project.build.directory}/generated-snippets
+        </confluence.documentation.attributes.snippets-3>
+        <confluence.documentation.attributes.snippets-4>${project.build.directory}/generated-snippets
+        </confluence.documentation.attributes.snippets-4>
+        <confluence.documentation.attributes.snippets-5>${project.build.directory}/generated-snippets
+        </confluence.documentation.attributes.snippets-5>
+        <!-- end region ASCIIDOCTOR ATRRIBUTES-->
+
+        <!--start region DEFAULTS-->
+        <!-- You MUST setup your defaults here. They can be overriden via comannd line arguments on CI. -->
+        <confluence.documentation.publisher.username>documentation-publisher
+        </confluence.documentation.publisher.username>
+        <confluence.documentation.publisher.password>documentation-publisher-password
+        </confluence.documentation.publisher.password>
+
+        <confluence.documentation.sandbox.url>https://confluence-sandbox-server.com
+        </confluence.documentation.sandbox.url>
+        <confluence.documentation.url>https://confluence-production-server.com</confluence.documentation.url>
+
+        <confluence.documentation.publishingStrategy>REPLACE_ANCESTOR</confluence.documentation.publishingStrategy>
+        <!--end region DEFAULTS-->
+
+
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>publish-documentation-to-confluence</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>confluence.documentation.enabled</name>
+                    <value>true</value>
+                </property>
+                <file>
+                    <exists>src/main/asciidoc/index.adoc</exists>
+                </file>
+            </activation>
+
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.sahli.asciidoc.confluence.publisher</groupId>
+                            <artifactId>asciidoc-confluence-publisher-maven-plugin</artifactId>
+                            <version>${asciidoc-confluence-publisher-maven-plugin.version}</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <!--See: https://confluence-publisher.atlassian.net/wiki/spaces/CPD/overview?mode=global-->
+                        <groupId>org.sahli.asciidoc.confluence.publisher</groupId>
+                        <artifactId>asciidoc-confluence-publisher-maven-plugin</artifactId>
+                        <dependencies>
+                            <!-- Include here AsciiDoctorJ extensions as dependencies -->
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>publish-to-first-space</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>publish</goal>
+                                </goals>
+                                <configuration>
+                                    <asciidocRootFolder>src/main/asciidoc</asciidocRootFolder>
+                                    <rootConfluenceUrl>${confluence.documentation.url}</rootConfluenceUrl>
+                                    <spaceKey>${confluence.documentation.first.space}</spaceKey>
+                                    <ancestorId>${confluence.documentation.first.pageId}</ancestorId>
+                                    <username>${confluence.documentation.publisher.username}</username>
+                                    <password>${confluence.documentation.publisher.password}</password>
+                                    <skip>${confluence.documentation.first.skip}</skip>
+                                    <pageTitleSuffix xml:space="preserve"> [RELEASE]</pageTitleSuffix>
+                                    <publishingStrategy>${confluence.documentation.publishingStrategy}
+                                    </publishingStrategy>
+                                    <versionMessage>${project.version}</versionMessage>
+                                    <attributes>
+                                        <snippets>${confluence.documentation.attributes.snippets}</snippets>
+                                        <snippets-1>${confluence.documentation.attributes.snippets-1}</snippets-1>
+                                        <snippets-2>${confluence.documentation.attributes.snippets-2}</snippets-2>
+                                        <snippets-3>${confluence.documentation.attributes.snippets-3}</snippets-3>
+                                        <snippets-4>${confluence.documentation.attributes.snippets-4}</snippets-4>
+                                        <snippets-5>${confluence.documentation.attributes.snippets-5}</snippets-5>
+
+                                        <sources>${confluence.documentation.attributes.sources}</sources>
+                                        <sources-1>${confluence.documentation.attributes.sources-1}</sources-1>
+                                        <sources-2>${confluence.documentation.attributes.sources-2}</sources-2>
+                                        <sources-3>${confluence.documentation.attributes.sources-3}</sources-3>
+                                        <sources-4>${confluence.documentation.attributes.sources-4}</sources-4>
+                                        <sources-5>${confluence.documentation.attributes.sources-5}</sources-5>
+
+                                        <project-name>${confluence.documentation.attributes.project-name}</project-name>
+                                        <project-version>${project.version}</project-version>
+                                    </attributes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>sandbox-publish-documentation-to-confluence</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>confluence.documentation.sandbox.enabled</name>
+                    <value>true</value>
+                </property>
+                <file>
+                    <exists>src/main/asciidoc/index.adoc</exists>
+                </file>
+            </activation>
+
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.sahli.asciidoc.confluence.publisher</groupId>
+                            <artifactId>asciidoc-confluence-publisher-maven-plugin</artifactId>
+                            <version>${asciidoc-confluence-publisher-maven-plugin.version}</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <!--See: https://confluence-publisher.atlassian.net/wiki/spaces/CPD/overview?mode=global-->
+                        <groupId>org.sahli.asciidoc.confluence.publisher</groupId>
+                        <artifactId>asciidoc-confluence-publisher-maven-plugin</artifactId>
+                        <dependencies>
+                            <!-- Include here AsciiDoctorJ extensions as dependencies -->
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>publish-to-sandbox-space</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>publish</goal>
+                                </goals>
+                                <configuration>
+                                    <asciidocRootFolder>src/main/asciidoc</asciidocRootFolder>
+                                    <rootConfluenceUrl>${confluence.documentation.sandbox.url}</rootConfluenceUrl>
+                                    <spaceKey>${confluence.documentation.sandbox.space}</spaceKey>
+                                    <ancestorId>${confluence.documentation.sandbox.pageId}</ancestorId>
+                                    <username>${confluence.documentation.publisher.username}</username>
+                                    <password>${confluence.documentation.publisher.password}</password>
+                                    <skip>false</skip>
+                                    <pageTitleSuffix xml:space="preserve"> [SNAPSHOT]</pageTitleSuffix>
+                                    <publishingStrategy>${confluence.documentation.publishingStrategy}
+                                    </publishingStrategy>
+                                    <versionMessage>${project.version}</versionMessage>
+                                    <attributes>
+                                        <snippets>${confluence.documentation.attributes.snippets}</snippets>
+                                        <snippets-1>${confluence.documentation.attributes.snippets-1}</snippets-1>
+                                        <snippets-2>${confluence.documentation.attributes.snippets-2}</snippets-2>
+                                        <snippets-3>${confluence.documentation.attributes.snippets-3}</snippets-3>
+                                        <snippets-4>${confluence.documentation.attributes.snippets-4}</snippets-4>
+                                        <snippets-5>${confluence.documentation.attributes.snippets-5}</snippets-5>
+
+                                        <sources>${confluence.documentation.attributes.sources}</sources>
+                                        <sources-1>${confluence.documentation.attributes.sources-1}</sources-1>
+                                        <sources-2>${confluence.documentation.attributes.sources-2}</sources-2>
+                                        <sources-3>${confluence.documentation.attributes.sources-3}</sources-3>
+                                        <sources-4>${confluence.documentation.attributes.sources-4}</sources-4>
+                                        <sources-5>${confluence.documentation.attributes.sources-5}</sources-5>
+
+                                        <target>${confluence.documentation.attributes.target}</target>
+                                        <target-1>${confluence.documentation.attributes.target-1}</target-1>
+                                        <target-2>${confluence.documentation.attributes.target-2}</target-2>
+                                        <target-3>${confluence.documentation.attributes.target-3}</target-3>
+                                        <target-4>${confluence.documentation.attributes.target-4}</target-4>
+                                        <target-5>${confluence.documentation.attributes.target-5}</target-5>
+
+                                        <project-name>${confluence.documentation.attributes.project-name}</project-name>
+                                        <project-version>${project.version}</project-version>
+                                    </attributes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

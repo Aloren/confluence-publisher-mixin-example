@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.playtika</groupId>
+        <artifactId>confluence-publisher-mixin-example</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>asciidoc-confluence-publisher-maven-mixin-usage-example</artifactId>
+
+    <properties>
+        <confluence.documentation.first.skip>false</confluence.documentation.first.skip>
+        <confluence.documentation.first.space>TESTSPACE</confluence.documentation.first.space>
+        <confluence.documentation.first.pageId>11111111</confluence.documentation.first.pageId>
+
+        <confluence.documentation.sandbox.space>TESTSPACE</confluence.documentation.sandbox.space>
+        <confluence.documentation.sandbox.pageId>22222222</confluence.documentation.sandbox.pageId>
+
+        <!-- Specify here version of the asciidoc-confluence-publisher-maven-mixin instead.
+        For the example ${project.version} is correct since, both mixin and consumer reside in one project-->
+        <asciidoc-confluence-publisher-maven-mixin.version>${project.version}</asciidoc-confluence-publisher-maven-mixin.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.odavid.maven.plugins</groupId>
+                <artifactId>mixin-maven-plugin</artifactId>
+                <version>0.1-alpha-40</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <mixins>
+                        <mixin>
+                            <groupId>com.playtika</groupId>
+                            <artifactId>asciidoc-confluence-publisher-maven-mixin</artifactId>
+                            <version>${asciidoc-confluence-publisher-maven-mixin.version}</version>
+                        </mixin>
+                    </mixins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,19 @@
+= asciidoc-confluence-publisher-maven-mixin
+
+This repository demonstrates how to use https://github.com/odavid/maven-plugins/blob/master/mixin-maven-plugin/README.md[Mixin Maven Plugin] together with https://github.com/confluence-publisher/confluence-publisher[asciidoc-confluence-publisher-maven-plugin].
+
+It contains 2 modules:
+
+- `asciidoc-confluence-publisher-maven-mixin` is a Mixin, that can be included into the project. It contains default configuration for the `asciidoc-confluence-publisher-maven-plugin` and also gives possibility to publish documentation into 2 separate Confluence servers -- Sandbox and Production. Please note that this Mixin is created only for demonstration purposes. Additional properties for configuration can be checked here: https://confluence-publisher.atlassian.net/wiki/spaces/CPD/overview.
+
+- `asciidoc-confluence-publisher-maven-mixin-usage-example` demonstrates how to attach `asciidoc-confluence-publisher-maven-mixin` to the project.
+
+If you setup all required default properties for the `asciidoc-confluence-publisher-maven-mixin` you can publish documentation to Sandbox Confluence server the following way:
+----
+mvn clean verify -Dconfluence.documentation.sandbox.enabled=true
+----
+
+To publish documentation to Production Confluence Server you need to use the following command:
+----
+mvn clean verify -Dconfluence.documentation.enabled=true -Dconfluence.documentation.publisher.username=PRODUCTION-USER -Dconfluence.documentation.publisher.password=PRODUCTION-PASSWORD
+----
