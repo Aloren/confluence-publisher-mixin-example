@@ -1,0 +1,19 @@
+= My amazing documentation
+
+I can use attributes:
+
+{snippets}
+
+{snippets-1}
+
+{snippets-2}
+
+{snippets-3}
+
+{snippets-4}
+
+{snippets-5}
+
+{meta-inf-folder}
+
+{target-folder}

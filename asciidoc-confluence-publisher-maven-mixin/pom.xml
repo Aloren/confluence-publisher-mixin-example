@@ -39,6 +39,7 @@
         </confluence.documentation.attributes.snippets-4>
         <confluence.documentation.attributes.snippets-5>${project.build.directory}/generated-snippets
         </confluence.documentation.attributes.snippets-5>
+
         <!-- end region ASCIIDOCTOR ATRRIBUTES-->
 
         <!--start region DEFAULTS-->
@@ -117,16 +118,20 @@
                                         <snippets-4>${confluence.documentation.attributes.snippets-4}</snippets-4>
                                         <snippets-5>${confluence.documentation.attributes.snippets-5}</snippets-5>
 
-                                        <sources>${confluence.documentation.attributes.sources}</sources>
-                                        <sources-1>${confluence.documentation.attributes.sources-1}</sources-1>
-                                        <sources-2>${confluence.documentation.attributes.sources-2}</sources-2>
-                                        <sources-3>${confluence.documentation.attributes.sources-3}</sources-3>
-                                        <sources-4>${confluence.documentation.attributes.sources-4}</sources-4>
-                                        <sources-5>${confluence.documentation.attributes.sources-5}</sources-5>
-
                                         <project-name>${confluence.documentation.attributes.project-name}</project-name>
                                         <project-version>${project.version}</project-version>
                                     </attributes>
+
+                                    <attributesProperties>
+                                        <property>
+                                            <name>${confluence.documentation.attributes.attribute-1.name}</name>
+                                            <value>${confluence.documentation.attributes.attribute-1.value}</value>
+                                        </property>
+                                        <property>
+                                            <name>${confluence.documentation.attributes.attribute-2.name}</name>
+                                            <value>${confluence.documentation.attributes.attribute-2.value}</value>
+                                        </property>
+                                    </attributesProperties>
                                 </configuration>
                             </execution>
                         </executions>
@@ -192,23 +197,20 @@
                                         <snippets-4>${confluence.documentation.attributes.snippets-4}</snippets-4>
                                         <snippets-5>${confluence.documentation.attributes.snippets-5}</snippets-5>
 
-                                        <sources>${confluence.documentation.attributes.sources}</sources>
-                                        <sources-1>${confluence.documentation.attributes.sources-1}</sources-1>
-                                        <sources-2>${confluence.documentation.attributes.sources-2}</sources-2>
-                                        <sources-3>${confluence.documentation.attributes.sources-3}</sources-3>
-                                        <sources-4>${confluence.documentation.attributes.sources-4}</sources-4>
-                                        <sources-5>${confluence.documentation.attributes.sources-5}</sources-5>
-
-                                        <target>${confluence.documentation.attributes.target}</target>
-                                        <target-1>${confluence.documentation.attributes.target-1}</target-1>
-                                        <target-2>${confluence.documentation.attributes.target-2}</target-2>
-                                        <target-3>${confluence.documentation.attributes.target-3}</target-3>
-                                        <target-4>${confluence.documentation.attributes.target-4}</target-4>
-                                        <target-5>${confluence.documentation.attributes.target-5}</target-5>
-
                                         <project-name>${confluence.documentation.attributes.project-name}</project-name>
                                         <project-version>${project.version}</project-version>
                                     </attributes>
+
+                                    <attributesProperties>
+                                        <property>
+                                            <name>${confluence.documentation.attributes.attribute-1.name}</name>
+                                            <value>${confluence.documentation.attributes.attribute-1.value}</value>
+                                        </property>
+                                        <property>
+                                            <name>${confluence.documentation.attributes.attribute-2.name}</name>
+                                            <value>${confluence.documentation.attributes.attribute-2.value}</value>
+                                        </property>
+                                    </attributesProperties>
                                 </configuration>
                             </execution>
                         </executions>
