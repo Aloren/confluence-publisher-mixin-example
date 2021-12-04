@@ -19,6 +19,12 @@
         <confluence.documentation.sandbox.space>TESTSPACE</confluence.documentation.sandbox.space>
         <confluence.documentation.sandbox.pageId>22222222</confluence.documentation.sandbox.pageId>
 
+        <confluence.documentation.attributes.attribute-1.name>meta-inf-folder</confluence.documentation.attributes.attribute-1.name>
+        <confluence.documentation.attributes.attribute-1.value>${project.basedir}/target/classes/META-INF</confluence.documentation.attributes.attribute-1.value>
+
+        <confluence.documentation.attributes.attribute-2.name>target-folder</confluence.documentation.attributes.attribute-2.name>
+        <confluence.documentation.attributes.attribute-2.value>${project.basedir}/target</confluence.documentation.attributes.attribute-2.value>
+
         <!-- Specify here version of the asciidoc-confluence-publisher-maven-mixin instead.
         For the example ${project.version} is correct since, both mixin and consumer reside in one project-->
         <asciidoc-confluence-publisher-maven-mixin.version>${project.version}</asciidoc-confluence-publisher-maven-mixin.version>
